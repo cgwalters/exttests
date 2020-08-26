@@ -12,3 +12,19 @@ of PRs to those repos.
 For example, I really want to run ostree's "transactionality"
 test on FCOS builds so that if a kernel change breaks it, we
 know that.
+
+## Proposal
+
+- Build this container in api.ci like we're building the cosa buildroot.
+- Change the FCOS/RHCOS pipelines to pull this container and do: `kola run ... ext.*`
+  (This raises some issues like the fact that we'd need to store/share the images
+   in a way that would allow a secondary container to access them)
+
+### Alternative: coreos-assembler only
+
+Fold this into coreos-assembler.
+
+### Alternative: Make RPMs of tests and install those in coreos-assembler
+
+We have an `ostree-tests` RPM...but I'm not sure I want to deal with
+packaging for it.
